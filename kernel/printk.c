@@ -2243,6 +2243,7 @@ void register_console(struct console *newcon)
 	 * before we register a new CON_BOOT console, make sure we don't
 	 * already have a valid console
 	 */
+
 	if (console_drivers && newcon->flags & CON_BOOT) {
 		/* find the last or real console */
 		for_each_console(bcon) {
@@ -2285,6 +2286,7 @@ void register_console(struct console *newcon)
 	 *	See if this console matches one we selected on
 	 *	the command line.
 	 */
+
 	for (i = 0; i < MAX_CMDLINECONSOLES && console_cmdline[i].name[0];
 			i++) {
 		if (strcmp(console_cmdline[i].name, newcon->name) != 0)
@@ -2332,7 +2334,8 @@ void register_console(struct console *newcon)
 	 *	Put this console in the list - keep the
 	 *	preferred driver at the head of the list.
 	 */
-	console_lock();
+// disable lock and unlock
+//	console_lock();
 	if ((newcon->flags & CON_CONSDEV) || console_drivers == NULL) {
 		newcon->next = console_drivers;
 		console_drivers = newcon;
@@ -2342,6 +2345,7 @@ void register_console(struct console *newcon)
 		newcon->next = console_drivers->next;
 		console_drivers->next = newcon;
 	}
+
 	if (newcon->flags & CON_PRINTBUFFER) {
 		/*
 		 * console_unlock(); will print out the buffered messages
@@ -2359,7 +2363,8 @@ void register_console(struct console *newcon)
 		 */
 		exclusive_console = newcon;
 	}
-	console_unlock();
+// disable lock and unlock
+//	console_unlock();
 	console_sysfs_notify();
 
 	/*
