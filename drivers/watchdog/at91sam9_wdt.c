@@ -43,7 +43,7 @@
 #define ticks_to_ms(t)	(((t + 1) * 1000) >> 8)
 
 /* Hardware timeout in seconds */
-#define WDT_HW_TIMEOUT 2
+#define WDT_HW_TIMEOUT 1
 
 /* Timer heartbeat (500ms) */
 #define WDT_TIMEOUT	(HZ/2)
@@ -51,7 +51,7 @@
 /* User land timeout */
 #define MIN_HEARTBEAT 1
 #define MAX_HEARTBEAT 16
-#define WDT_HEARTBEAT 15
+#define WDT_HEARTBEAT 10
 static int heartbeat;
 module_param(heartbeat, int, 0);
 MODULE_PARM_DESC(heartbeat, "Watchdog heartbeats in seconds. "
@@ -108,9 +108,9 @@ static void at91wdt_timer_tick(unsigned long data)
 		at91_wdt_reset(driver_data);
 		mod_timer(&driver_data->timer, jiffies + WDT_TIMEOUT);
 
-		if (!watchdog_is_open(wddev))
-			driver_data->next_heartbeat = jiffies
-						+ wddev->timeout * HZ;
+//		if (!watchdog_is_open(wddev))
+//			driver_data->next_heartbeat = jiffies
+//						+ wddev->timeout * HZ;
 	} else
 		pr_crit("I will reset your machine !\n");
 }
@@ -144,6 +144,11 @@ static int at91wdt_enable(struct watchdog_device *wddev, unsigned int timeout)
 		| AT91_WDT_WDD		/* restart at any time */
 		| (timeout & AT91_WDT_WDV);  /* timer value */
 	wdt_write(driver_data, AT91_WDT_MR, reg);
+
+	pr_info("timeout=%x\n",timeout);
+
+	reg = wdt_read(driver_data, AT91_WDT_MR);
+	pr_info("MR register=0x%08x",reg);
 
 	driver_data->is_enable = true;
 
