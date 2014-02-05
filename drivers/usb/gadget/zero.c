@@ -97,7 +97,7 @@ module_param(loopdefault, bool, S_IRUGO|S_IWUSR);
 #define DEFAULT_AUTORESUME	0
 #else
 #define DRIVER_VENDOR_NUM	0x1a0a		/* OTG test device IDs */
-#define DRIVER_PRODUCT_NUM	0xbadd
+#define DRIVER_PRODUCT_NUM	0x0104
 #define DEFAULT_AUTORESUME	5
 #endif
 
