@@ -40,6 +40,17 @@
 				status = "okay";
 			};
 		};
+		usb1: ohci@00600000 {
+			num-ports = <2>;
+			atmel,vbus-gpio =
+				<&pioD 25 1
+				 &pioD 26 1>;
+			atmel,oc-gpio = 
+				<&pioD 24 0
+				 &pioD 28 0>;
+								  
+			status = "okay";
+		};		
 	};
 
 	leds {
