@@ -60,7 +60,7 @@
 		d2 {
 			status = "disabled";
 		};
-		status_led_r{
+/*		status_led_r{
 			label = "status_led:red";
 			gpios = <&pioC 25 0>;			
 		};
@@ -68,7 +68,7 @@
 			label = "status_led:green";
 			gpios = <&pioC 23 0>;			
 		};
-	};
+*/	};
 
 	sound {
 		status = "okay";
