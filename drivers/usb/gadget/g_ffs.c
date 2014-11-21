@@ -373,8 +373,12 @@ static int gfs_bind(struct usb_composite_dev *cdev)
 		c->c.label			= gfs_strings[i].s;
 		c->c.iConfiguration		= gfs_strings[i].id;
 		c->c.bConfigurationValue	= 1 + i;
+#ifdef CONFIG_USB_GADGET_SELFPOWERED
+		c->c.bmAttributes		= USB_CONFIG_ATT_ONE | USB_CONFIG_ATT_SELFPOWER ; // self powered
+#else
 		c->c.bmAttributes		= USB_CONFIG_ATT_ONE  ; //bus powered
-		c->c.bMaxPower = 250;
+#endif
+		c->c.bMaxPower                  = CONFIG_USB_GADGET_VBUS_DRAW / 2;
 
 		ret = usb_add_config(cdev, &c->c, gfs_do_config);
 		if (unlikely(ret < 0))
