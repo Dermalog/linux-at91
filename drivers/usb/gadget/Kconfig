@@ -97,6 +97,13 @@ config USB_GADGET_VBUS_DRAW
 	   This value will be used except for system-specific gadget
 	   drivers that have more specific information.
 
+config USB_GADGET_SELFPOWERED
+        bool "Self powered device"
+        default false
+        help
+           define the usb device descriptor attribute about power source
+           this feature works only for functionfs in g_ffs.c
+
 config USB_GADGET_STORAGE_NUM_BUFFERS
 	int "Number of storage pipeline buffers"
 	range 2 4
