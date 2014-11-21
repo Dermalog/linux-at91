@@ -39,6 +39,10 @@
 			macb1: ethernet@f802c000 {
 				status = "okay";
 			};
+
+			aes: aes@f8038000 {
+			    status = "okay";
+			};
 		};
 		usb1: ohci@00600000 {
 			num-ports = <2>;
